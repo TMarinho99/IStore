@@ -62,13 +62,14 @@ class ClientController {
             name: Yup.string(),
             address: Yup.string(),
             whatsapp: Yup.string(),
+            avatar_id: Yup.number(),
         });
 
         if (!(await schema.isValid(req.body))) {
             return res.status(400).json({ error: 'Validation fails' });
         }
 
-        const { name } = req.body;
+        const { name, avatar_id } = req.body;
 
         const client = await Client.findByPk(req.params.id);
 
@@ -87,8 +88,9 @@ class ClientController {
             name,
             address,
             whatsapp,
+            avatar_id,
         });
     }
 }
 
-export default ClientController;
+export default new ClientController();

@@ -1,12 +1,11 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Client extends Model {
+class File extends Model {
     static init(sequelize) {
         super.init(
             {
                 name: Sequelize.STRING,
-                address: Sequelize.STRING,
-                whatsapp: Sequelize.STRING,
+                path: Sequelize.STRING,
             },
             {
                 sequelize,
@@ -14,10 +13,6 @@ class Client extends Model {
         );
         return this;
     }
-
-    static associate(models) {
-        this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
-    }
 }
 
-export default Client;
+export default File;

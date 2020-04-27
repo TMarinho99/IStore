@@ -40,6 +40,7 @@ class UserController {
             id: Yup.number(),
             name: Yup.string(),
             email: Yup.string().email(),
+            avatar_id: Yup.number(),
             oldPassword: Yup.string().min(8),
             password: Yup.string()
                 .min(8)
@@ -55,7 +56,7 @@ class UserController {
             return res.status(400).json({ error: 'Validation fails' });
         }
 
-        const { email, oldPassword } = req.boby;
+        const { email, oldPassword, avatar_id } = req.boby;
 
         const user = await User.findByPk(req.userId);
 
@@ -78,6 +79,7 @@ class UserController {
             name,
             email,
             whatsapp,
+            avatar_id,
         });
     }
 }
