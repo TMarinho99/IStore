@@ -15,7 +15,7 @@ class PurchaseController {
             amount: Yup.number().required(),
         });
         if (!(await schema.isValid(req.body))) {
-            return res.status().json({ error: 'validation failed' });
+            return res.status(400).json({ error: 'validation failed' });
         }
 
         const purchase = await Purchase.create(req.body);

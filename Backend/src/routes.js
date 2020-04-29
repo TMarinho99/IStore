@@ -7,6 +7,8 @@ import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import ClientController from './app/controllers/ClientController';
 import ProductController from './app/controllers/ProductController';
+import PurchaseController from './app/controllers/PurchaseController';
+import PurchaseProductController from './app/controllers/PurchaseProductController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -19,9 +21,12 @@ routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddleware);
 
-routes.get('/users', UserController.index);
 routes.post('/files', upload.single('file'), FileController.store);
+
+routes.get('/users', UserController.index);
 routes.put('/users/:id', UserController.update);
+routes.get('/users/:id', UserController.show);
+routes.delete('/users/:id', UserController.delete);
 
 routes.post('/clients', ClientController.store);
 routes.get('/clients', ClientController.index);
@@ -34,5 +39,13 @@ routes.get('/products', ProductController.index);
 routes.get('/products/:id', ProductController.show);
 routes.put('/products/:id', ProductController.update);
 routes.delete('/products/:id', ProductController.delete);
+
+routes.post('/purchases', PurchaseController.store);
+routes.get('/purchases', PurchaseController.index);
+
+routes.post(
+    '/purchases/:purchaseId/products/:productId',
+    PurchaseProductController.store
+);
 
 export default routes;
