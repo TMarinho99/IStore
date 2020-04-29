@@ -6,14 +6,12 @@ import auth from '../../config/auth';
 class SessionController {
     async store(req, res) {
         const schema = Yup.object().shape({
-            name: Yup.string().required(),
             email: Yup.string().email().required(),
             password: Yup.string().required(),
-            whatsapp: Yup.string().required(),
         });
 
         if (!(await schema.isValid(req.body))) {
-            return res.status().json({ error: 'validation failed' });
+            return res.status(400).json({ error: 'validation failed' });
         }
 
         const { email, password } = req.body;

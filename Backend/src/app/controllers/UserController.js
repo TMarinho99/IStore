@@ -2,27 +2,33 @@ import * as Yup from 'yup';
 import User from '../models/User';
 
 class UserController {
+    async index(req, res) {
+        const users = await User.findAll();
+
+        return res.json(users);
+    }
+
     async store(req, res) {
         const schema = Yup.object().shape({
             name: Yup.string().required(),
             email: Yup.string().email().required(),
-            password: Yup.string().min(8).required(),
+            password: Yup.string().required().min(8),
             whatsapp: Yup.string().required(),
         });
 
         if (!(await schema.isValid(req.body))) {
-            return res.status().json({ error: 'validation failed' });
+            return res.status(400).json({ error: 'validation failed' });
         }
 
-        const existUser = await User.findOne({
+        const userExist = await User.findOne({
             where: { email: req.body.email },
         });
 
-        if (existUser) {
-            return res.status(400).json({ error: 'User already registered' });
+        if (userExist) {
+            return res.status(400).json({ eror: 'Usuario ja existe' });
         }
 
-        const [id, name, email, whatsapp] = await User.create(req.body);
+        const { id, name, email, whatsapp } = await User.create(req.body);
 
         req.user_id = id;
 
@@ -56,7 +62,7 @@ class UserController {
             return res.status(400).json({ error: 'Validation fails' });
         }
 
-        const { email, oldPassword, avatar_id } = req.boby;
+        const { email, oldPassword, avatar_id } = req.body;
 
         const user = await User.findByPk(req.userId);
 
@@ -81,6 +87,44 @@ class UserController {
             whatsapp,
             avatar_id,
         });
+    }
+
+    async show(req, res) {
+        const schema = Yup.object().shape({
+            id: Yup.number().required(),
+        });
+
+        if (!(await schema.isValid(req.params))) {
+            return res.status(400).json({ error: 'Validation fails' });
+        }
+
+        const existUser = await User.findByPk(req.params.id);
+
+        if (!existUser) {
+            return res.status(400).json({ error: 'User not found' });
+        }
+
+        return res.json(existUser);
+    }
+
+    async delete(req, res) {
+        const schema = Yup.object().shape({
+            id: Yup.number().required(),
+        });
+
+        if (!(await schema.isValid(req.params))) {
+            return res.status(400).json({ error: 'Validation fails' });
+        }
+
+        const existUser = await User.findByPk(req.params.id);
+
+        if (!existUser) {
+            return res.status(400).json({ error: 'User not found' });
+        }
+
+        await existUser.destroy();
+
+        return res.status(204).send();
     }
 }
 

@@ -6,7 +6,7 @@ module.exports = {
     database: 'istore',
     define: {
         timestamps: true,
-        underscores: true,
-        underscoresAll: true,
+        underscored: true,
+        underscoredAll: true,
     },
 };

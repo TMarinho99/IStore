@@ -16,7 +16,7 @@ class ClientController {
         });
 
         if (!(await schema.isValid(req.body))) {
-            return res.status().json({ error: 'validation failed' });
+            return res.status(400).json({ error: 'validation failed' });
         }
 
         const { name } = req.body;
@@ -90,6 +90,26 @@ class ClientController {
             whatsapp,
             avatar_id,
         });
+    }
+
+    async delete(req, res) {
+        const schema = Yup.object().shape({
+            id: Yup.number().required(),
+        });
+
+        if (!(await schema.isValid(req.params))) {
+            return res.status(400).json({ error: 'Validation fails' });
+        }
+
+        const existClient = await Client.findByPk(req.params.id);
+
+        if (!existClient) {
+            return res.status(400).json({ error: 'Client not found' });
+        }
+
+        await existClient.destroy();
+
+        return res.status(204).send();
     }
 }
 
