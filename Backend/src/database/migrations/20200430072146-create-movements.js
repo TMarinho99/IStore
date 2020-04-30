@@ -14,6 +14,10 @@ module.exports = {
                 onDelete: 'SET NULL',
                 allowNul: false,
             },
+            description: {
+                type: Sequelize.ENUM('ENTRADA', 'SAIDA'),
+                allowNull: false,
+            },
             date: {
                 type: Sequelize.DATE,
                 allowNull: false,

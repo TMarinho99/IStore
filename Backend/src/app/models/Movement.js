@@ -6,6 +6,7 @@ class Movement extends Model {
             {
                 date: Sequelize.DATE,
                 value: Sequelize.INTEGER,
+                description: Sequelize.ENUM('ENTRADA', 'SAIDA'),
             },
             {
                 sequelize,

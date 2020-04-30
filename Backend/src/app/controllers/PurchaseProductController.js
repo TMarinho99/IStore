@@ -90,6 +90,7 @@ class PurchaseProductController {
         await Movement.create({
             date,
             value,
+            description: 'SAIDA',
             cashier_id: 1,
         });
 

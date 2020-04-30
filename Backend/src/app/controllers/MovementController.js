@@ -30,6 +30,7 @@ class MovementController {
     async store(req, res) {
         const schema = Yup.object().shape({
             value: Yup.number().required(),
+            description: Yup.string().required(),
         });
 
         if (!(await schema.isValid(req.body))) {
@@ -43,11 +44,12 @@ class MovementController {
         }
 
         const date = new Date();
-        const { value } = req.body;
+        const { value, description } = req.body;
 
         const { id } = await Movement.create({
             date,
             value,
+            description,
             cashier_id: 1,
         });
 
@@ -58,6 +60,7 @@ class MovementController {
             id,
             date,
             value,
+            description,
         });
     }
 }
