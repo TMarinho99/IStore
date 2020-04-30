@@ -15,6 +15,7 @@ import SaleController from './app/controllers/SaleController';
 import SaleProductController from './app/controllers/SaleProductController';
 import FinalizeSale from './app/controllers/FinalizeSale';
 import CategoryController from './app/controllers/CategoryController';
+import SaleList from './app/controllers/SaleList';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -63,8 +64,10 @@ routes.get('/cashier/movements', MovementController.index);
 
 routes.post('/sales', SaleController.store);
 routes.get('/sales', SaleController.index);
+routes.get('/salesList', SaleList.index);
 
 routes.post('/sales/:saleId/products/:productId', SaleProductController.store);
+routes.get('/sales/:saleId/products', SaleProductController.index);
 
 routes.post('/sales/:id/finalize', FinalizeSale.store);
 

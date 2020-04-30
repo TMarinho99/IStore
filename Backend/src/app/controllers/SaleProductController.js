@@ -5,8 +5,44 @@ import Sale from '../models/Sale';
 import Product from '../models/Product';
 import Movement from '../models/Movement';
 import Cashier from '../models/Cashier';
+import Category from '../models/Category';
 
 class SaleProductController {
+    async index(req, res) {
+        const existSale = await Sale.findByPk(req.params.saleId);
+
+        if (!existSale) {
+            return res.status(400).json({ error: 'Sale not found' });
+        }
+
+        const saleProduct = await SaleProduct.findAll({
+            where: { sale_id: req.params.saleId },
+            attributes: ['id', 'note', 'amount', 'price_product'],
+            include: [
+                {
+                    model: Product,
+                    as: 'product',
+                    attributes: [
+                        'name',
+                        'price',
+                        'description',
+                        'size',
+                        'amount',
+                    ],
+                    include: [
+                        {
+                            model: Category,
+                            as: 'category',
+                            attributes: ['description'],
+                        },
+                    ],
+                },
+            ],
+        });
+
+        return res.json(saleProduct);
+    }
+
     async store(req, res) {
         req.body.sale_id = req.params.saleId;
         req.body.product_id = req.params.productId;
