@@ -14,6 +14,7 @@ import MovementController from './app/controllers/MovementController';
 import SaleController from './app/controllers/SaleController';
 import SaleProductController from './app/controllers/SaleProductController';
 import FinalizeSale from './app/controllers/FinalizeSale';
+import CategoryController from './app/controllers/CategoryController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -66,5 +67,8 @@ routes.get('/sales', SaleController.index);
 routes.post('/sales/:saleId/products/:productId', SaleProductController.store);
 
 routes.post('/sales/:id/finalize', FinalizeSale.store);
+
+routes.post('/categories', CategoryController.store);
+routes.get('/categories', CategoryController.index);
 
 export default routes;

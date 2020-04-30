@@ -23,6 +23,7 @@ class ProductController {
             size: Yup.string(),
             amount: Yup.string().required(),
             file_id: Yup.number(),
+            category_id: Yup.number(),
         });
 
         if (!(await schema.isValid(req.body))) {
@@ -39,9 +40,14 @@ class ProductController {
                 .json({ error: 'Product already registered' });
         }
 
-        const { id, price, description, amount, size } = await Product.create(
-            req.body
-        );
+        const {
+            id,
+            price,
+            description,
+            amount,
+            size,
+            category_id,
+        } = await Product.create(req.body);
 
         return res.json({
             id,
@@ -51,6 +57,7 @@ class ProductController {
             size,
             amount,
             file_id,
+            category_id,
         });
     }
 
@@ -82,6 +89,7 @@ class ProductController {
             size: Yup.string(),
             amount: Yup.string(),
             file_id: Yup.number(),
+            category_id: Yup.number(),
         });
 
         if (!(await schema.isValid(req.body))) {
@@ -101,6 +109,7 @@ class ProductController {
             size,
             amount,
             file_id,
+            category_id,
         } = await existProduct.update(req.body);
 
         return res.json({
@@ -110,6 +119,7 @@ class ProductController {
             size,
             amount,
             file_id,
+            category_id,
         });
     }
 

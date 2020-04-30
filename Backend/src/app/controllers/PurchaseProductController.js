@@ -5,6 +5,7 @@ import Purchase from '../models/Purchase';
 import PurchaseProduct from '../models/PurchaseProduct';
 import Movement from '../models/Movement';
 import Cashier from '../models/Cashier';
+import Category from '../models/Category';
 
 class PurchaseProductController {
     async index(req, res) {
@@ -35,6 +36,13 @@ class PurchaseProductController {
                         'description',
                         'size',
                         'amount',
+                    ],
+                    include: [
+                        {
+                            model: Category,
+                            as: 'category',
+                            attributes: ['description'],
+                        },
                     ],
                 },
             ],

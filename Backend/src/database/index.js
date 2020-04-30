@@ -12,6 +12,7 @@ import Cashier from '../app/models/Cashier';
 import Movement from '../app/models/Movement';
 import Sale from '../app/models/Sale';
 import SaleProduct from '../app/models/SaleProduct';
+import Category from '../app/models/Category';
 
 const models = [
     User,
@@ -24,6 +25,7 @@ const models = [
     Movement,
     Sale,
     SaleProduct,
+    Category,
 ];
 
 class Database {
