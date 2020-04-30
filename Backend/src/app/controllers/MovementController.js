@@ -1,3 +1,4 @@
+import * as Yup from 'yup';
 import Movement from '../models/Movement';
 import Cashier from '../models/Cashier';
 
@@ -27,6 +28,14 @@ class MovementController {
     }
 
     async store(req, res) {
+        const schema = Yup.object().shape({
+            value: Yup.number().required(),
+        });
+
+        if (!(await schema.isValid(req.body))) {
+            return res.status(400).json({ error: 'validation failed' });
+        }
+
         const existCashier = await Cashier.findByPk(1);
 
         if (!existCashier) {

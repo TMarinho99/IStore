@@ -10,6 +10,7 @@ import Purchase from '../app/models/Purchase';
 import PurchaseProduct from '../app/models/PurchaseProduct';
 import Cashier from '../app/models/Cashier';
 import Movement from '../app/models/Movement';
+import Sale from '../app/models/Sale';
 
 const models = [
     User,
@@ -20,6 +21,7 @@ const models = [
     PurchaseProduct,
     Cashier,
     Movement,
+    Sale,
 ];
 
 class Database {

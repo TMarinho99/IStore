@@ -11,6 +11,7 @@ import PurchaseController from './app/controllers/PurchaseController';
 import PurchaseProductController from './app/controllers/PurchaseProductController';
 import CashierController from './app/controllers/CashierController';
 import MovementController from './app/controllers/MovementController';
+import SaleController from './app/controllers/SaleController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -56,5 +57,7 @@ routes.get('/cashier', CashierController.show);
 
 routes.post('/cashier/movements', MovementController.store);
 routes.get('/cashier/movements', MovementController.index);
+
+routes.post('/sales', SaleController.store);
 
 export default routes;
