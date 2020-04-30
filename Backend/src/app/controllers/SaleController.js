@@ -3,6 +3,28 @@ import Sale from '../models/Sale';
 import Client from '../models/Client';
 
 class SaleController {
+    async index(req, res) {
+        const response = await Sale.findAll({
+            attributes: [
+                'id',
+                'date',
+                'note',
+                'status',
+                'value_sale',
+                'installments',
+            ],
+            include: [
+                {
+                    model: Client,
+                    as: 'client',
+                    attributes: ['id', 'name', 'address', 'whatsapp'],
+                },
+            ],
+        });
+
+        return res.json(response);
+    }
+
     async store(req, res) {
         const schema = Yup.object().shape({
             date: Yup.date().required(),
