@@ -8,8 +8,19 @@ import File from '../app/models/File';
 import Product from '../app/models/Product';
 import Purchase from '../app/models/Purchase';
 import PurchaseProduct from '../app/models/PurchaseProduct';
+import Cashier from '../app/models/Cashier';
+import Movement from '../app/models/Movement';
 
-const models = [User, Client, File, Product, Purchase, PurchaseProduct];
+const models = [
+    User,
+    Client,
+    File,
+    Product,
+    Purchase,
+    PurchaseProduct,
+    Cashier,
+    Movement,
+];
 
 class Database {
     constructor() {

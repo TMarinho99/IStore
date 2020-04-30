@@ -4,7 +4,7 @@ class PurchaseProduct extends Model {
     static init(sequelize) {
         super.init(
             {
-                pricel: Sequelize.INTEGER,
+                price: Sequelize.INTEGER,
                 amount: Sequelize.INTEGER,
             },
             {

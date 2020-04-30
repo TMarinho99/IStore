@@ -9,6 +9,8 @@ import ClientController from './app/controllers/ClientController';
 import ProductController from './app/controllers/ProductController';
 import PurchaseController from './app/controllers/PurchaseController';
 import PurchaseProductController from './app/controllers/PurchaseProductController';
+import CashierController from './app/controllers/CashierController';
+import MovementController from './app/controllers/MovementController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -47,5 +49,12 @@ routes.post(
     '/purchases/:purchaseId/products/:productId',
     PurchaseProductController.store
 );
+routes.get('/purchases/:purchaseId/products', PurchaseProductController.index);
+
+routes.post('/cashier', CashierController.store);
+routes.get('/cashier', CashierController.show);
+
+routes.post('/cashier/movements', MovementController.store);
+routes.get('/cashier/movements', MovementController.index);
 
 export default routes;
